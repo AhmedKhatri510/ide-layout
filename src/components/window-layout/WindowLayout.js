@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // utils
 import cn from "classnames";
@@ -6,29 +6,21 @@ import cn from "classnames";
 // hooks
 import { useResizable } from "react-resizable-layout";
 
-// styles
-import styles from "./window-layout.module.css";
+// context
+import WindowLayoutContext from "../../context/windowLayoutContext";
+
+// components
 import SampleSplitter from "../sample-splitter/SampleSplitter";
 import VerticalTab from "../verticle-tab/VerticalTab";
+import UserForm from "../user-form/UserForm";
+
+// styles
+import styles from "./window-layout.module.css";
 
 const WindowLayout = () => {
-  const fileBarMaxWidth = window.innerWidth * 0.8;
+  const [activeTabId, setActiveTabId] = useState(0);
 
-  // data contains object with property index and title
-  const data = [
-    {
-      index: 0,
-      title: "Insert User",
-    },
-    {
-      index: 1,
-      title: "Update User",
-    },
-    {
-      index: 2,
-      title: "Insert/Update Count",
-    },
-  ];
+  const fileBarMaxWidth = window.innerWidth * 0.8;
 
   const {
     isDragging: isFileDragging,
@@ -47,39 +39,55 @@ const WindowLayout = () => {
     splitterProps: terminalDragBarProps,
   } = useResizable({
     axis: "y",
-    initial: 150,
+    initial: 400,
     min: 50,
     reverse: true,
   });
 
+  // data contains object with property index and title
+  const data = [
+    {
+      index: 0,
+      title: "Insert User",
+    },
+    {
+      index: 1,
+      title: "Update User",
+    },
+    {
+      index: 2,
+      title: "Insert/Update Count",
+    },
+  ];
+
   return (
     <div className={styles.windowLayoutContainer}>
-      <div className={styles.topContainer}>
-        {fileW > 130 && (
-          <div
-            className={cn(styles.contents, styles.fileContent)}
-            style={{ width: fileW }}
-          >
-            <div>
+      <WindowLayoutContext.Provider value={{ activeTabId, setActiveTabId }}>
+        <div className={styles.topContainer}>
+          {fileW > 130 && (
+            <div
+              className={cn(styles.contents, styles.fileContent)}
+              style={{ width: fileW }}
+            >
               <VerticalTab data={data} />
             </div>
-          </div>
-        )}
-        <SampleSplitter isDragging={isFileDragging} {...fileDragBarProps} />
-        <div className={styles.topContainer}>
-          <div className={styles.contents} style={{ width: "100%" }}>
-            Editor
+          )}
+          <SampleSplitter isDragging={isFileDragging} {...fileDragBarProps} />
+          <div className={styles.topContainer}>
+            <div className={styles.contents} style={{ width: "100%" }}>
+              {activeTabId === 2 ? <p>No form to show!</p> : <UserForm />}
+            </div>
           </div>
         </div>
-      </div>
-      <SampleSplitter
-        dir={"horizontal"}
-        isDragging={isTerminalDragging}
-        {...terminalDragBarProps}
-      />
-      <div className={styles.contents} style={{ height: terminalH }}>
-        Terminal
-      </div>
+        <SampleSplitter
+          dir={"horizontal"}
+          isDragging={isTerminalDragging}
+          {...terminalDragBarProps}
+        />
+        <div className={styles.contents} style={{ height: terminalH }}>
+          Terminal
+        </div>
+      </WindowLayoutContext.Provider>
     </div>
   );
 };

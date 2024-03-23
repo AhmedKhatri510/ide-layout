@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import styles from "./vtlist.module.css";
+import WindowLayoutContext from "../../context/windowLayoutContext";
 
-const VTlist = ({ data, onClick, index, activeTabId }) => {
+const VTlist = ({ data, onClick, index }) => {
+  const { activeTabId } = useContext(WindowLayoutContext);
   const Clicked = () => {
     onClick(index);
   };

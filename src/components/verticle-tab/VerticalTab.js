@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { Container, Row, Col } from "reactstrap";
 
 import VTlist from "./VTList";
 
 import styles from "./verticle-tab.module.css";
+import WindowLayoutContext from "../../context/windowLayoutContext";
 
 const VerticalTab = ({ data }) => {
-  const [activeTabId, setActiveTabId] = useState(0);
-
+  const { activeTabId, setActiveTabId } = useContext(WindowLayoutContext);
   const btnClick = (id) => {
     setActiveTabId(id);
   };
@@ -24,7 +24,6 @@ const VerticalTab = ({ data }) => {
                   onClick={btnClick}
                   data={tab}
                   index={tab.index}
-                  activeTabId={activeTabId}
                 />
               ))}
             </ul>

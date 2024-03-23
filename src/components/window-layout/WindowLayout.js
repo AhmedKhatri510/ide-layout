@@ -9,9 +9,26 @@ import { useResizable } from "react-resizable-layout";
 // styles
 import styles from "./window-layout.module.css";
 import SampleSplitter from "../sample-splitter/SampleSplitter";
+import VerticalTab from "../verticle-tab/VerticalTab";
 
 const WindowLayout = () => {
   const fileBarMaxWidth = window.innerWidth * 0.8;
+
+  // data contains object with property index and title
+  const data = [
+    {
+      index: 0,
+      title: "Insert User",
+    },
+    {
+      index: 1,
+      title: "Update User",
+    },
+    {
+      index: 2,
+      title: "Insert/Update Count",
+    },
+  ];
 
   const {
     isDragging: isFileDragging,
@@ -38,9 +55,14 @@ const WindowLayout = () => {
   return (
     <div className={styles.windowLayoutContainer}>
       <div className={styles.topContainer}>
-        {fileW > 50 && (
-          <div className={cn(styles.contents)} style={{ width: fileW }}>
-            File Tree
+        {fileW > 130 && (
+          <div
+            className={cn(styles.contents, styles.fileContent)}
+            style={{ width: fileW }}
+          >
+            <div>
+              <VerticalTab data={data} />
+            </div>
           </div>
         )}
         <SampleSplitter isDragging={isFileDragging} {...fileDragBarProps} />

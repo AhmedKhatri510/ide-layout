@@ -13,9 +13,11 @@ import WindowLayoutContext from "../../context/windowLayoutContext";
 import SampleSplitter from "../sample-splitter/SampleSplitter";
 import VerticalTab from "../verticle-tab/VerticalTab";
 import UserForm from "../user-form/UserForm";
+import UserTable from "../user-table/UserTable";
 
 // styles
 import styles from "./window-layout.module.css";
+import CountTable from "../count-table/CountTable";
 
 const WindowLayout = () => {
   const [activeTabId, setActiveTabId] = useState(0);
@@ -84,8 +86,13 @@ const WindowLayout = () => {
           isDragging={isTerminalDragging}
           {...terminalDragBarProps}
         />
-        <div className={styles.contents} style={{ height: terminalH }}>
-          Terminal
+        <div
+          className={cn(styles.contents, styles.terminal)}
+          style={{
+            height: terminalH,
+          }}
+        >
+          {activeTabId === 2 ? <CountTable /> : <UserTable />}
         </div>
       </WindowLayoutContext.Provider>
     </div>

@@ -1,10 +1,14 @@
 import React, { useContext } from "react";
-import { Container, Row, Col } from "reactstrap";
 
+// components
+import { Container, Row, Col } from "reactstrap";
 import VTlist from "./VTList";
 
-import styles from "./verticle-tab.module.css";
+// context
 import WindowLayoutContext from "../../context/windowLayoutContext";
+
+// styles
+import styles from "./verticle-tab.module.css";
 
 const VerticalTab = ({ data }) => {
   const { activeTabId, setActiveTabId } = useContext(WindowLayoutContext);

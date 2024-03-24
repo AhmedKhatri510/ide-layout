@@ -1,9 +1,17 @@
 import React, { useContext, useEffect } from "react";
+
+// axios
+import axios from "axios";
+
+// form validation
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import styles from "./user-form.module.css";
+
+// context
 import WindowLayoutContext from "../../context/windowLayoutContext";
-import axios from "axios";
+
+// styles
+import styles from "./user-form.module.css";
 
 const addValidation = Yup.object({
   firstName: Yup.string()

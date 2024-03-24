@@ -1,7 +1,10 @@
 import React, { useContext } from "react";
 
-import styles from "./vtlist.module.css";
+// context
 import WindowLayoutContext from "../../context/windowLayoutContext";
+
+// styles
+import styles from "./vtlist.module.css";
 
 const VTlist = ({ data, onClick, index }) => {
   const { activeTabId } = useContext(WindowLayoutContext);

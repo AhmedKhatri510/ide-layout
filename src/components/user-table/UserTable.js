@@ -1,9 +1,13 @@
+import React, { useEffect, useMemo, useState } from "react";
+
+// axios
 import axios from "axios";
+
+//components
 import {
   MaterialReactTable,
   useMaterialReactTable,
 } from "material-react-table";
-import React, { useEffect, useMemo, useState } from "react";
 
 const UserTable = () => {
   const [data, setData] = useState([]);
@@ -33,10 +37,6 @@ const UserTable = () => {
     []
   );
 
-  const handleRowSelectionChange = (e) => {
-    console.log(e);
-  };
-
   const table = useMaterialReactTable({
     columns,
     data,
@@ -44,7 +44,6 @@ const UserTable = () => {
     enableRowSelection: false,
     enablePagination: true, //disable a default feature
     pageCount: Math.round(data.length / 2),
-    onRowSelectionChange: (e) => handleRowSelectionChange(e), //hoist internal state to your own state (optional)
     muiPaginationProps: {
       rowsPerPageOptions: [2, 4, 6],
       showRowsPerPage: true,
@@ -53,12 +52,6 @@ const UserTable = () => {
     },
     onPaginationChange: setPagination, //hoist pagination state to your state when it changes internally
     state: { pagination }, //pass the pagination state to the table
-    // initialState: {
-    //   pagination: {
-    //     pageSize: 4,
-    //     pageIndex: 1,
-    //   },
-    // },
   });
 
   const fetchData = async () => {

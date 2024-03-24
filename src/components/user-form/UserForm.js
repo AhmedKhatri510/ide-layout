@@ -28,7 +28,7 @@ const addValidation = Yup.object({
 const updateValidation = Yup.object({
   id: Yup.string()
     .min(2, "Mininum 2 characters")
-    .max(15, "Maximum 15 characters")
+    .max(100, "Maximum 15 characters")
     .required("Required!"),
   firstName: Yup.string()
     .min(2, "Mininum 2 characters")
@@ -38,7 +38,7 @@ const updateValidation = Yup.object({
     .min(2, "Mininum 2 characters")
     .max(15, "Maximum 15 characters")
     .required("Required!"),
-  age: Yup.number().max(2, "Minimum 2 characters").required("Required!"),
+  age: Yup.number().min(2, "Minimum 2 characters").required("Required!"),
 });
 
 const UserForm = () => {
